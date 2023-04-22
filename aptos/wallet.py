@@ -2,30 +2,33 @@ from bitcoinlib.wallets import Wallet, wallet_delete, wallet_delete_if_exists
 from bitcoinlib.mnemonic import Mnemonic
 from bitcoinlib.keys import HDKey
 
-# Generate a 12-word mnemonic seed
-mnemonic = Mnemonic().generate(strength=128)
-print("Mnemonic seed:", mnemonic)
 
-# Create a master private key from the mnemonic seed
-master_private_key = HDKey.from_seed(mnemonic, key_type="bip32")
-print("Master private key:", master_private_key.wif())
+class HDWallet:
 
-# Create an HD Wallet
-if wallet_delete_if_exists('MyHDWallet'):
-    pass
+    wallet: Wallet
+    mnemonic: str
+    _private_key: HDKey
 
-if wallet_delete_if_exists('new wallet'):
-    pass
+    def __init__(self, name: str):
+        self.mnemonic = Mnemonic().generate(strength=128)
+        self._private_key = HDKey.from_seed(self.mnemonic, key_type="bip32")
+        wallet_delete_if_exists(name)
+        self.wallet = Wallet.create(name, keys=self._private_key)
+        self.__str__()
 
-if wallet_delete_if_exists('test'):
-    pass
+    def generate_derived_wallet(self, path: str):
+        pass
 
-wallet = Wallet.create("MyHDWallet", keys=master_private_key)
+    def __str__(self):
+        print(f'Mnemonic : {self.mnemonic}')
+        print(f'Private Key : {self._private_key}')
+        print(f'Wallet ID : {self.wallet.wallet_id}')
+        print(f'Dictionary : {self.wallet.as_dict(True)}')
 
+    @property
+    def private_key(self):
+        return self._private_key
 
-
-# Generate addresses
-number_of_addresses = 5
-for i in range(number_of_addresses):
-    key = wallet.get_key()
-    print(f"Address {i + 1}: {key.address}")
+    @private_key.setter
+    def private_key(self, value):
+        self._private_key = value

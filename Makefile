@@ -15,6 +15,9 @@ all: help
 
 ## Build :
 build: ## Build project
+	@mkdir -p gen
+	@mkdir -p build
+	@python setup.py build
 	@python -m grpc_tools.protoc -I ./proto \
   --proto_path=proto/ \
   --python_out=gen/ \
@@ -22,9 +25,10 @@ build: ## Build project
   --pyi_out=gen/ \
   ./proto/*
 
+
 ## Run:
-run: ## Run project
-	python main.py
+run: build ## Run project
+	@python main.py
 
 
 ## Help:

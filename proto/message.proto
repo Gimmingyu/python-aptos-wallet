@@ -1,0 +1,38 @@
+syntax = "proto3";
+package primrose;
+
+
+message HealthCheckInput {
+  string msg = 1 [json_name = 'msg'];
+}
+
+message HealthCheckOutput {
+  string ret = 1 [json_name = 'ret'];
+}
+
+message CreateWalletInput {
+  string user_id = 1 [json_name = 'user_id'];
+}
+
+message CreateWalletOutput {
+  string address = 1 [json_name = 'address'];
+}
+
+message TransferInput {
+  string from = 1 [json_name = 'from'];
+  string to = 2 [json_name = 'to'];
+  string amount = 3 [json_name = 'amount'];
+}
+
+message TransferOutput {
+  bool success = 1 [json_name = "success"];
+}
+
+message GetBalanceInput {
+  string address = 1 [json_name = 'address'];
+}
+
+message GetBalanceOutput {
+  string balance = 1 [json_name = 'balance'];
+}
+

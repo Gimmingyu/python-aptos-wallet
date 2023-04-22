@@ -1,0 +1,11 @@
+syntax = "proto3";
+package primrose;
+
+import "message.proto";
+
+service Aptos {
+  rpc HealthCheck(HealthCheckInput) returns (HealthCheckOutput);
+  rpc CreateWallet(CreateWalletInput) returns (CreateWalletOutput);
+  rpc GetBalance(GetBalanceInput) returns (GetBalanceOutput);
+  rpc Transfer(TransferInput) returns (TransferOutput);
+}

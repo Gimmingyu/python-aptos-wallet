@@ -27,7 +27,7 @@ class HDWallet:
     """
 
     def __init__(self):
-        self.mnemonic = "fragile permit pepper timber mixed hotel crew lens ball deal always dismiss"
+        self.mnemonic = Mnemonic(language='english').generate()
         pt = PublicKeyUtils(self.mnemonic)
         self.master = pt
         self.rest_client = RestClient(NODE_URL)

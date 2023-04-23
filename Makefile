@@ -1,4 +1,4 @@
-.PHONY: proto
+.PHONY: proto build all run help
 SHELL = /bin/bash
 CMD = python
 
@@ -14,16 +14,16 @@ all: help
 
 
 ## Build :
-build: ## Build project
+build:
 	@mkdir -p gen
 	@mkdir -p build
 	@python setup.py build
 	@python -m grpc_tools.protoc -I ./proto \
-  --proto_path=proto/ \
-  --python_out=gen/ \
-  --grpc_python_out=gen/ \
-  --pyi_out=gen/ \
-  ./proto/*
+	  --proto_path=proto/ \
+	  --python_out=gen/ \
+	  --grpc_python_out=gen/ \
+	  --pyi_out=gen/ \
+	  ./proto/*
 
 
 ## Run:

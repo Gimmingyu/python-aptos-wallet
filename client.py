@@ -11,6 +11,11 @@ def run():
         response = stub.HealthCheck(message_pb2.HealthCheckInput(msg="primrose"))
     print("Client received: ", response)
 
+    with grpc.insecure_channel('localhost:50051') as channel:
+        stub = aptos_pb2_grpc.AptosStub(channel)
+        response = stub.CreateWallet(message_pb2.CreateWalletInput(user_id=0))
+    print("Client received: ", response)
+
 
 if __name__ == '__main__':
     logging.basicConfig()

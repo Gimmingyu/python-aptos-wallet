@@ -11,7 +11,7 @@ message HealthCheckOutput {
 }
 
 message CreateWalletInput {
-  string user_id = 1 [json_name = 'user_id'];
+  uint64 user_id = 1 [json_name = 'user_id'];
 }
 
 message CreateWalletOutput {
